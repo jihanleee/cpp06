@@ -6,6 +6,7 @@ CC = c++
 INC = ./headers/
 
 SRCS = srcs/main.cpp \
+srcs/ScalarConverter.cpp
 
 $(NAME) : $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
@@ -17,7 +18,7 @@ clean :
 
 fclean : clean
 	rm -f $(NAME)
-	rm -f *_shrubbery
+
 re : fclean all
 
 .PHONY : clean fclean all re
