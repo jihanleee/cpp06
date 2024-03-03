@@ -1,14 +1,16 @@
 #include "ScalarConverter.hpp"
 #include <cctype>
-#define CHAR 1
-#define INT 2
-#define FLOAT 3
-#define DOUBLE 4
+
 
 /*checks if the input complies with the grammar of the string for atof conversion.*/
-bool isFloat(std::string &str) {
+int isWhichFloat(std::string &str) {
 	size_t i = 0;
 
+	/* inf or nan cases*/
+	if (str == "-inff" || str == "+inff" || str == "nanf")
+		return (FLOAT);
+	if (str == "-inf" || str == "+inf" || str == "nan")
+		return (DOUBLE);
 	/*mantissa part*/
 	if (i < str.length() && (str[i] == '+' || str[i] == '-'))
 		i++;
@@ -42,7 +44,9 @@ bool isFloat(std::string &str) {
 			return (false);
 	}
 	if (i == str.length()) // when successfully reached eof
-		return (true);
+		return (DOUBLE);
+	else if (i < str.length() && str[i] == 'f')
+		return (FLOAT);
 	else
 		return (false);
 

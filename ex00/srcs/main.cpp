@@ -5,9 +5,16 @@ int main (int argc, char **argv) {
 		std::cout << "invalid number of arguments\n";
 	std::cout <<"wow\n" ;
 	std::string str(argv[1]);
-	if (isFloat(str))
-		std::cout << "str is float string\n";
-	else
-		std::cout << "str is not convertible\n";
+	switch (isWhichFloat(str)) {
+		case FLOAT:
+			std::cout << "str is float\n";
+			break;
+		case DOUBLE:
+			std::cout << "str is double\n";
+			break;
+		case false:
+			std::cout << "str is not convertible\n";
+			break;
+	}
 	return (0);
 }
