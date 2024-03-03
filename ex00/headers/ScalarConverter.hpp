@@ -8,4 +8,6 @@ class ScalarConverter {
 		static void convert(char *str);
 };
 
+bool isFloat(std::string &str);
+
 #endif

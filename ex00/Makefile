@@ -1,6 +1,6 @@
 NAME = a.out
 FLAGS = -Wall -Wextra -Werror -std=c++98 -I $(INC) -g3
-
+TFLAGS = -std=c++98 -I $(INC) -g3
 CC = c++
 
 INC = ./headers/
@@ -10,6 +10,9 @@ srcs/ScalarConverter.cpp
 
 $(NAME) : $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
+
+test : $(SRCS)
+	$(CC) $(TFLAGS) $(SRCS) -o $(NAME)
 
 all : $(NAME)
 
