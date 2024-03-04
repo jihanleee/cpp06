@@ -2,6 +2,7 @@
 # define ScalarConverter_HPP
 # include <iostream>
 # include <string>
+# include <cctype>
 # define CHAR 1
 # define INT 2
 # define FLOAT 3
@@ -13,5 +14,6 @@ class ScalarConverter {
 };
 
 int isWhichFloat(std::string &str);
+int getLiteralType(std::string &str);
 
 #endif

@@ -1,6 +1,18 @@
 #include "ScalarConverter.hpp"
-#include <cctype>
 
+bool isInt(std::string &str) {
+	bool result = 0;
+
+	size_t i = 0;
+	if (i < str.length() && (str[i] == '+' || str[i] == '-'))
+		i++;
+	if (i < str.length())
+		result = 1;
+	for (; i < str.length(); i++)
+		if (!isdigit(str[i]))
+			result = 0;
+	return (result);
+}
 
 /*checks if the input complies with the grammar of the string for atof conversion.*/
 int isWhichFloat(std::string &str) {
@@ -48,27 +60,39 @@ int isWhichFloat(std::string &str) {
 	else if (i < str.length() && str[i] == 'f')
 		return (FLOAT);
 	else
-		return (false);
+		return (false); // neither float nor double
 
 }
 
-static int getVariableType(std::string &str) {
-	bool isInt;
+int getLiteralType(std::string &str) {
 
-	isInt = 1;
-	for (size_t i = 0; i < str.length(); i++)
-		if (!isdigit(str[i]))
-			isInt = 0;
-	if (isInt)
+	if (isInt(str))
 		return (INT);
-	if (str.length() == 3 && str.at(0) == '\'' && str.at(2) == '\'' && isprint(str.at(1)))
+	if (str.length() == 1)
 		return (CHAR);
-	return (-1);
+	return (isWhichFloat(str));
 }
 
 void ScalarConverter::convert(char *str) {
 	(void) str;
-/* 	std::string input(str);
+	std::string input(str);
 
-	type = getVariableType(input); */
+	int type = getLiteralType(input);
+	switch (type) {
+		case CHAR:
+			std::cout << "str is char\n";
+			break;
+		case INT:
+			std::cout << "str is int\n";
+			break;
+		case FLOAT:
+			std::cout << "str is float\n";
+			break;
+		case DOUBLE:
+			std::cout << "str is double\n";
+			break;
+		case false:
+			std::cout << "str is not convertible\n";
+			break;
+	}
 }

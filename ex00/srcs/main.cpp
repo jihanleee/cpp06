@@ -5,7 +5,13 @@ int main (int argc, char **argv) {
 		std::cout << "invalid number of arguments\n";
 	std::cout <<"wow\n" ;
 	std::string str(argv[1]);
-	switch (isWhichFloat(str)) {
+	switch (getLiteralType(str)) {
+		case CHAR:
+			std::cout << "str is char\n";
+			break;
+		case INT:
+			std::cout << "str is int\n";
+			break;
 		case FLOAT:
 			std::cout << "str is float\n";
 			break;
