@@ -119,13 +119,13 @@ int getLiteralType(std::string &str) {
 
 template <typename T> void convertVars(T value) {
 
-	if (value < -128 || value > 127)
+	if (value < -128 || value > 127 || isnan(value))
 		std::cout << "char: impossible\n";
-	else if (std::isprint(value))
+	else if (std::isprint((char)value))
 		std::cout << "char: " << "'" << char(value) << "'" << std::endl;
 	else
 		std::cout << "char: is not printable\n";
-	if (value < INT_MIN || value > INT_MAX)
+	if (value < INT_MIN || value > INT_MAX || isnan(value))
 		std::cout << "int: impossible\n";
 	else
 		std::cout << "int: " << int(value) << std::endl;
