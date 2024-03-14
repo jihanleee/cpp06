@@ -1,6 +1,9 @@
 NAME = a.out
-FLAGS = -Wall -Wextra -Werror -std=c++98 -I $(INC) -g3
+
+FLAGS = -Wall -Wextra -Werror -std=c++98 -I $(INC)
+
 TFLAGS = -std=c++98 -I $(INC) -g3
+
 CC = c++
 
 INC = ./headers/

@@ -3,6 +3,10 @@
 # include <iostream>
 # include <string>
 # include <cctype>
+# include <cstdlib>
+# include <climits>
+# include <cerrno>
+# include <cmath>
 # define CHAR 1
 # define INT 2
 # define FLOAT 3
@@ -15,5 +19,5 @@ class ScalarConverter {
 
 int isWhichFloat(std::string &str);
 int getLiteralType(std::string &str);
-
+template <typename T> void convertVars(T value);
 #endif

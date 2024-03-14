@@ -1,5 +1,18 @@
 #include "ScalarConverter.hpp"
 
+bool isIntOverflow(std::string &str) {
+	long longVar;
+
+	errno = 0;
+	longVar = strtol(str.c_str(), NULL, 10);
+
+	if (longVar < INT_MIN || longVar > INT_MAX || errno == ERANGE) {
+		errno = 0;
+		return (1);
+	}
+	return (0);
+}
+
 bool isInt(std::string &str) {
 	bool result = 0;
 
@@ -57,20 +70,67 @@ int isWhichFloat(std::string &str) {
 	}
 	if (i == str.length()) // when successfully reached eof
 		return (DOUBLE);
-	else if (i < str.length() && str[i] == 'f')
+	else if (i < str.length() && str[i] == 'f' && i == str.length() - 1) // when the last char is 'f'
 		return (FLOAT);
 	else
 		return (false); // neither float nor double
 
 }
 
-int getLiteralType(std::string &str) {
+bool isFloatOverflow(std::string &str) {
+	errno = 0;
+	strtof(str.c_str(), NULL);
 
-	if (isInt(str))
+	if (errno == ERANGE) {
+		errno = 0;
+		return (1);
+	}
+	return (0);
+}
+
+bool isDoubleOverflow(std::string &str) {
+
+	errno = 0;
+	strtod(str.c_str(), NULL);
+
+	if (errno == ERANGE) {
+		errno = 0;
+		return (1);
+	}
+	return (0);
+}
+
+int getLiteralType(std::string &str) {
+	if (isInt(str) && !isIntOverflow(str))
 		return (INT);
-	if (str.length() == 1)
+	if (str.length() == 3 && str.at(0) == '\'' && str.at(2) == '\'' && isprint(str.at(1)))
 		return (CHAR);
-	return (isWhichFloat(str));
+	int precisionType;
+
+	precisionType = isWhichFloat(str);
+	if (precisionType == FLOAT && !isFloatOverflow(str)) {
+		return (FLOAT);
+	}
+	else if (precisionType == DOUBLE && !isDoubleOverflow(str)){
+		return (DOUBLE);
+	}
+	return (false);
+}
+
+template <typename T> void convertVars(T value) {
+
+	if (value < -128 || value > 127)
+		std::cout << "char: impossible\n";
+	else if (std::isprint(value))
+		std::cout << "char: " << "'" << char(value) << "'" << std::endl;
+	else
+		std::cout << "char: is not printable\n";
+	if (value < INT_MIN || value > INT_MAX)
+		std::cout << "int: impossible\n";
+	else
+		std::cout << "int: " << int(value) << std::endl;
+	std::cout << "float: " << float(value) << "f" << std::endl;
+	std::cout << "double: " << double(value) << std::endl;
 }
 
 void ScalarConverter::convert(char *str) {
@@ -80,19 +140,22 @@ void ScalarConverter::convert(char *str) {
 	int type = getLiteralType(input);
 	switch (type) {
 		case CHAR:
-			std::cout << "str is char\n";
+			convertVars(str[1]);
 			break;
 		case INT:
-			std::cout << "str is int\n";
+			convertVars(strtol(str, NULL, 10));
 			break;
 		case FLOAT:
-			std::cout << "str is float\n";
+			convertVars(strtof(str, NULL));
 			break;
 		case DOUBLE:
-			std::cout << "str is double\n";
+			convertVars(strtod(str, NULL));
 			break;
 		case false:
-			std::cout << "str is not convertible\n";
+			std::cout << "char: impossible\n";
+			std::cout << "int: impossible\n";
+			std::cout << "float: impossible\n";
+			std::cout << "double: impossible\n";
 			break;
 	}
 }
