@@ -1,5 +1,20 @@
 #include "ScalarConverter.hpp"
 
+ScalarConverter::ScalarConverter() {
+	/*constructor*/
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter & a) {
+	/*copy constructor*/
+	(void) a;
+}
+
+ScalarConverter & ScalarConverter::operator = (const ScalarConverter & a) {
+	/*copy assignment operator*/
+	(void) a;
+	return (*this);
+}
+
 bool isIntOverflow(std::string &str) {
 	long longVar;
 

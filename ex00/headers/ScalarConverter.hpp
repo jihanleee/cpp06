@@ -14,6 +14,11 @@
 
 class ScalarConverter {
 	public:
+		ScalarConverter();
+		virtual ~ScalarConverter() = 0;
+		ScalarConverter(const ScalarConverter & a);
+		ScalarConverter & operator = (const ScalarConverter & a);
+
 		static void convert(char *str);
 };
 
