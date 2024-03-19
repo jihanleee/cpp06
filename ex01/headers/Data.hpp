@@ -1,9 +1,10 @@
 #ifndef Data_HPP
 # define Data_HPP
+# include <string>
 
-struct Data
-{
-	/* data */
+struct Data {
+	int intData;
+	std::string stringData;
 };
 
 #endif

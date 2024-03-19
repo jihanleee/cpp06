@@ -8,7 +8,8 @@ CC = c++
 
 INC = ./headers/
 
-SRCS = srcs/main.cpp
+SRCS = srcs/main.cpp \
+srcs/Serializer.cpp 
 
 $(NAME) : $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
