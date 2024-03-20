@@ -2,6 +2,7 @@
 # define Base_HPP
 # include <iostream>
 # include <fstream>
+# include <exception>
 
 class Base {
 	public:

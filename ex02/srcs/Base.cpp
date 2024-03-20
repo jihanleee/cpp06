@@ -26,13 +26,40 @@ Base * generate(void) {
 		break;
 	}
 	return (NULL);
-
 }
 
 void identify(Base* p) {
 
+	if (dynamic_cast<A*>(p))
+		std::cout << "A\n";
+	if (dynamic_cast<B*>(p))
+		std::cout << "B\n";
+	if (dynamic_cast<C*>(p))
+		std::cout << "C\n";
 }
 
 void identify(Base& p) {
+	try{
+		(void)dynamic_cast<A&>(p);
+			std::cout << "A\n";
+	}
+	catch(std::exception &e){
+		//std::cout << "not a\n";
+	}
 
+	try{
+		(void)dynamic_cast<B&>(p);
+			std::cout << "B\n";
+	}
+	catch(std::exception &e){
+		//std::cout << "not b\n";
+	}
+
+	try{
+		(void)dynamic_cast<C&>(p);
+			std::cout << "C\n";
+	}
+	catch(std::exception &e){
+		//std::cout << "not c\n";
+	}
 }
